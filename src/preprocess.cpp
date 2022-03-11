@@ -1,7 +1,8 @@
 #include "preprocess.h"
 
-#define RETURN0     0x00
-#define RETURN0AND1 0x10
+#define RETURN0 0x00
+#define RETURN1 0x10
+#define GOODLIVOXTAG(TAG) ((TAG & 0x30) == RETURN0 || (TAG & 0x30) == RETURN1)
 
 Preprocess::Preprocess()
   :feature_enabled(0), lidar_type(AVIA), blind(0.01), point_filter_num(1)
@@ -94,7 +95,7 @@ void Preprocess::avia_handler(const livox_ros_driver::CustomMsg::ConstPtr &msg)
   {
     for(uint i=1; i<plsize; i++)
     {
-      if((msg->points[i].line < N_SCANS) && ((msg->points[i].tag & 0x30) == 0x10 || (msg->points[i].tag & 0x30) == 0x00))
+      if((msg->points[i].line < N_SCANS) && GOODLIVOXTAG(msg->points[i].tag))
       {
         pl_full[i].x = msg->points[i].x;
         pl_full[i].y = msg->points[i].y;
@@ -143,7 +144,7 @@ void Preprocess::avia_handler(const livox_ros_driver::CustomMsg::ConstPtr &msg)
   {
     for(uint i=1; i<plsize; i++)
     {
-      if((msg->points[i].line < N_SCANS) && ((msg->points[i].tag & 0x30) == 0x10 || (msg->points[i].tag & 0x30) == 0x00))
+      if((msg->points[i].line < N_SCANS) && GOODLIVOXTAG(msg->points[i].tag))
       {
         valid_num ++;
         if (valid_num % point_filter_num == 0)
@@ -193,7 +194,7 @@ void Preprocess::avia_pcl_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
   {
     for(uint i=1; i<plsize; i++)
     {
-      if((pl_orig[i].line < N_SCANS) && ((pl_orig[i].tag & 0x30) == 0x10 || (pl_orig[i].tag & 0x30) == 0x00))
+      if((pl_orig[i].line < N_SCANS) && GOODLIVOXTAG(pl_orig[i].tag))
       {
         pl_full[i].x = pl_orig[i].x;
         pl_full[i].y = pl_orig[i].y;
@@ -242,7 +243,7 @@ void Preprocess::avia_pcl_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
   {
     for(uint i=1; i<plsize; i++)
     {
-      if((pl_orig[i].line < N_SCANS) && ((pl_orig[i].tag & 0x30) == 0x10 || (pl_orig[i].tag & 0x30) == 0x00))
+      if((pl_orig[i].line < N_SCANS) && GOODLIVOXTAG(pl_orig[i].tag))
       {
         valid_num ++;
         if (valid_num % point_filter_num == 0)
