@@ -792,7 +792,8 @@ int main(int argc, char** argv)
     nh.param<int>("pcd_save/interval", pcd_save_interval, -1);
     nh.param<vector<double>>("mapping/extrinsic_T", extrinT, vector<double>());
     nh.param<vector<double>>("mapping/extrinsic_R", extrinR, vector<double>());
-    cout<<"p_pre->lidar_type "<<p_pre->lidar_type<<endl;
+    cout << "p_pre->lidar_type " << p_pre->lidar_type  << endl;
+    cout << "extrinsic_T: " << extrinT[0] << " " << extrinT[1] << " " << extrinT[2] << endl;
 
     path.header.stamp    = ros::Time::now();
     path.header.frame_id ="camera_init";
