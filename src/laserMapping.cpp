@@ -143,6 +143,7 @@ void SigHandle(int sig)
     flg_exit = true;
     ROS_WARN("catch sig %d", sig);
     sig_buffer.notify_all();
+    ros::shutdown();
 }
 
 inline void dump_lio_state_to_log(FILE *fp)
