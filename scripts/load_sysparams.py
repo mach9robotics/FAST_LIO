@@ -20,7 +20,7 @@ def load_gnss_params(gnss):
     extrinsic_T = gnss.extrinsic_T
     # assuming transform lidar->imu << imu->gnss
     rospy.set_param(
-        "/mapping/extrinsic_T",
+        "mapping/extrinsic_T",
         [
             float(extrinsic_T[0][0]),
             float(extrinsic_T[1][0]),
@@ -31,7 +31,7 @@ def load_gnss_params(gnss):
 def load_fastlio_params(fastlio_filepath):
     with open(fastlio_filepath) as f:
         yamlfile = yaml.safe_load(f)
-        upload_params("/", yamlfile)
+        upload_params("", yamlfile)
         rospy.loginfo("Loaded FAST-LIO config params from " + fastlio_filepath)
 
 def main(args):

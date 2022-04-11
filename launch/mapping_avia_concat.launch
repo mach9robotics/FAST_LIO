@@ -1,14 +1,16 @@
 <launch>
     <!-- Launch file for Livox AVIA LiDAR -->
 
-        <arg name="rviz" default="true" />
-        <arg name="sysparam" default="" />
-        <!-- $(find m9_sysparam)/config/example_config.yaml -->
+    <arg name="rviz" default="true" />
+    <arg name="sysparam" default="" />
+    <!-- $(find m9_sysparam)/config/example_config.yaml -->
 
-        <!-- <rosparam command="load" file="$(find fast_lio)/config/avia_concat.yaml" /> -->
+    <!-- <rosparam command="load" file="$(find fast_lio)/config/avia_concat.yaml" /> -->
+    <group ns="slam">
+
         <node pkg="fast_lio" type="load_sysparams.py" name="load_sysparams_node"
-              args="$(find fast_lio)/config/avia_concat.yaml $(arg sysparam)"
-              output="screen"/>
+                args="$(find fast_lio)/config/avia_concat.yaml $(arg sysparam)"
+                output="screen"/>
 
         <param name="feature_extract_enable" type="bool" value="0"/>
         <param name="point_filter_num" type="int" value="3"/>
@@ -22,7 +24,9 @@
         <node pkg="fast_lio" type="fastlio_mapping" name="laserMapping" output="screen" launch-prefix="bash -c 'sleep 1; $0 $@'"/>
 
         <group if="$(arg rviz)">
-        <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio)/rviz_cfg/loam_livox.rviz" />
+        <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio)/rviz_cfg/odometry.rviz" />
         </group>
 
-    </launch>
+    </group>
+
+</launch>
