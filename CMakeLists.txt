@@ -112,8 +112,6 @@ install(DIRECTORY rviz_cfg/
   FILES_MATCHING PATTERN "*.rviz"
 )
 
-install(DIRECTORY scripts/
+install(PROGRAMS scripts/load_sysparams.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  FILES_MATCHING
-  PATTERN "*.py"
 )
