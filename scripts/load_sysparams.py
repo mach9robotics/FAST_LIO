@@ -13,7 +13,7 @@ import sys
 import rospy
 import yaml
 from rosparam import upload_params
-from m9_sysparam import SystemParameters, SensorType
+from m9_sysparam.sysparam import SystemParameters, SensorType
 
 def load_gnss_params(gnss):
     rospy.loginfo("Overriding GNSS->LIDAR extrinsics")
