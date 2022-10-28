@@ -59,6 +59,7 @@
 #include <livox_ros_driver/CustomMsg.h>
 #include "preprocess.h"
 #include <ikd-Tree/ikd_Tree.h>
+#include <boost/filesystem.hpp>
 
 #define INIT_TIME           (0.1)
 #define LASER_POINT_COV     (0.001)
@@ -829,6 +830,7 @@ int main(int argc, char** argv)
     kf.init_dyn_share(get_f, df_dx, df_dw, h_share_model, NUM_MAX_ITERATIONS, epsi);
 
     /*** debug record ***/
+    boost::filesystem::create_directories(root_dir + "/Log");
     FILE *fp;
     string pos_log_dir = root_dir + "/Log/pos_log.txt";
     fp = fopen(pos_log_dir.c_str(),"w");

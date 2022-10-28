@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(fast_lio)
 
-SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_BUILD_TYPE "Release")
 
 ADD_COMPILE_OPTIONS(-std=c++14 )
 ADD_COMPILE_OPTIONS(-std=c++14 )
 set( CMAKE_CXX_FLAGS "-std=c++14 -O3" )
 
-add_definitions(-DROOT_DIR=\"tmp/\")
+add_definitions(-DROOT_DIR="/tmp/")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fexceptions" )
 set(CMAKE_CXX_STANDARD 14)
